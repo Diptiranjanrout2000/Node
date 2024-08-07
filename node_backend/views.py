@@ -153,7 +153,6 @@
 #     return JsonResponse({"message": "NodeModel deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 
-
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
