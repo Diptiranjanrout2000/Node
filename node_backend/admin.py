@@ -5,8 +5,8 @@ from .models import *
 @admin.register(Node)
 class Node(admin.ModelAdmin):
     list_display =['nodeid']
-@admin.register(NodeModel)
-class NodeModel(admin.ModelAdmin):
-    list_display =['node_id','gateway_id','data']
+# @admin.register(NodeModel)
+# class NodeModel(admin.ModelAdmin):
+#     list_display =['node_id','gateway_id','data']
 
 # admin.site.register(NodeModel)

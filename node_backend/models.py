@@ -1,11 +1,12 @@
 from enum import unique
-from statistics import mode
+# from statistics import mode
 from djongo import models
 from django.contrib.auth.models import User
 # Create your models here.
 
 class Node(models.Model):
-    nodeid = models.CharField(max_length=200)
+    nodeid = models.CharField(max_length = 150)
+    
 
     def __str__(self):
         return (self.id)

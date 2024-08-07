@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'node_backend'
+    'node_backend',
 ]
 
 MIDDLEWARE = [
@@ -76,17 +76,31 @@ WSGI_APPLICATION = 'nodedatabase.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': "nodetest",
+#         'ENFORCE_SCHEMA':False,
+#         'CLIENT':{
+#             'host':'localhost',
+#             'port':27017
+#         }
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': "nodetest",
-        'ENFORCE_SCHEMA':False,
-        'CLIENT':{
-            'host':'localhost',
-            'port':27017
-        }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'nodetest',
+        'USER': 'postgres',
+        'PASSWORD': 'dipti@123',
+        'HOST': '192.168.0.110',
+        'PORT': '5432',
     }
 }
+
+
+
+
 
 
 # Password validation

@@ -23,16 +23,18 @@ def post_node(request):
         data = JSONParser().parse(request)
         nodeid = data.get("node_id")
         print(nodeid)
+        try:
 
-        node_exist = Node.objects.filter(nodeid=nodeid)
-
-        if node_exist:
-            return JsonResponse({"message":"id already exists"})
-        node = Node(nodeid=nodeid)
-        node.save()
-        return JsonResponse({"message":"node created"})
-                
-       
+            node_exist = Node.objects.filter(nodeid=nodeid)
+            if node_exist.exists():
+                return JsonResponse({"message":"id already exists"})
+            else:
+                node = Node(nodeid=nodeid)
+                node.save()
+                        
+                return JsonResponse({'message': 'node data post Successful'})
+        except:
+            return JsonResponse({'message': 'Error'})
 
 
 @api_view(['PUT'])
@@ -94,6 +96,10 @@ def node_data_post(request):
         node_model.save()
 
         return JsonResponse({"message": "node post created"}, status=201)
+ 
+    # except Exception as e:
+    #     return JsonResponse({'message': 'error'})
+                   
     
 
 @api_view(['PUT'])
