@@ -11,6 +11,6 @@ urlpatterns = [
     path('nodedata_post/',views.node_data_post),
     path('update_node_data/<int:node_id>/', views.update_node_data),
     path('delete_node_data/<int:node_id>/', views.delete_node_data),
-    path('', admin.site.urls),
+    path('admin/', admin.site.urls),
 
 ]

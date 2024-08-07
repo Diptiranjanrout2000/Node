@@ -222,6 +222,12 @@ def node_data_get(request):
         serializer = NodeDataSerializer(NodeModel_objs, many=True)
         return JsonResponse({'status': 200, 'payload': serializer.data})
 
+
+from django.http import JsonResponse
+from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view
+from .models import Node, NodeModel
+
 @api_view(['POST'])
 def node_data_post(request):
     if request.method == 'POST':
@@ -230,21 +236,25 @@ def node_data_post(request):
         gateway_id = data1.get("gateway_id")
         data = data1.get("data_field")
 
+        # Check if data is None or not a dict
         if data is None or not isinstance(data, dict):
             return JsonResponse({"error": "Invalid or missing data_field"}, status=400)
+        
         try:
-            node = Node.objects.get(nodeid=nodedata)
-        except Node.DoesNotExist:
-            return JsonResponse({"error": "Node not found"}, status=404)
+            node = Node.objects.filter(nodeid=nodedata).first()
+            if node:
+                node_model = NodeModel(
+                    node_id=node,
+                    gateway_id=gateway_id,
+                    data_field=data
+                )
+                node_model.save()
 
-        node_model = NodeModel(
-            node_id=node,
-            gateway_id=gateway_id,
-            data=data
-        )
-        node_model.save()
-
-        return JsonResponse({"message": "node post created"}, status=201)
+                return JsonResponse({"message": "Node post created"}, status=201)
+            else:
+                return JsonResponse({"error": "Node not found"}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=400)
 
 @api_view(['PUT'])
 def update_node_data(request, node_id):
@@ -257,7 +267,7 @@ def update_node_data(request, node_id):
             if not new_gateway_id or not new_data_field:
                 return JsonResponse({"message": "gateway_id and data_field are required"}, status=status.HTTP_400_BAD_REQUEST)
 
-            if not isinstance(new_data_field, dict):
+            if not isinstance(new_data_field):
                 return JsonResponse({"error": "Invalid data_field format. Must be a dictionary."}, status=status.HTTP_400_BAD_REQUEST)
 
             try:
