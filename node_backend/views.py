@@ -225,9 +225,12 @@ def node_data_get(request):
 @api_view(['GET'])
 def node_data_get(request):
     if request.method == 'GET':
-        NodeModel_objs = NodeModel.objects.last()
-        serializer = NodeDataSerializer(NodeModel_objs, many=True)
-        return JsonResponse({'status': 200, 'payload': serializer.data})
+        NodeModel_obj = NodeModel.objects.last()
+        if NodeModel_obj is None:
+            return JsonResponse({'status': 404, 'message': 'No data found'}, status=404)
+
+        serializer = NodeDataSerializer(NodeModel_obj)
+        return JsonResponse({'status': 200, 'payload': serializer.data}, status=200)
 
 
 from django.http import JsonResponse
