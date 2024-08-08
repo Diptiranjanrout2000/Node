@@ -222,6 +222,13 @@ def node_data_get(request):
         serializer = NodeDataSerializer(NodeModel_objs, many=True)
         return JsonResponse({'status': 200, 'payload': serializer.data})
 
+@api_view(['GET'])
+def node_data_get(request):
+    if request.method == 'GET':
+        NodeModel_objs = NodeModel.objects.last()
+        serializer = NodeDataSerializer(NodeModel_objs, many=True)
+        return JsonResponse({'status': 200, 'payload': serializer.data})
+
 
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
