@@ -267,7 +267,7 @@ def update_node_data(request, node_id):
             if not new_gateway_id or not new_data_field:
                 return JsonResponse({"message": "gateway_id and data_field are required"}, status=status.HTTP_400_BAD_REQUEST)
 
-            if not isinstance(new_data_field):
+            if not isinstance(new_data_field,dict):
                 return JsonResponse({"error": "Invalid data_field format. Must be a dictionary."}, status=status.HTTP_400_BAD_REQUEST)
 
             try:
