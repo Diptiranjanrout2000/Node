@@ -281,7 +281,7 @@ def update_node_data(request, node_id):
                 return JsonResponse({"message": "NodeModel with the given node_id and gateway_id not found"}, status=status.HTTP_404_NOT_FOUND)
 
             for node_model in node_models:
-                node_model.data = new_data_field
+                node_model = new_data_field
                 node_model.save()
 
             return JsonResponse({"message": "NodeModel updated successfully"}, status=status.HTTP_200_OK)
