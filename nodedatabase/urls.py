@@ -7,7 +7,7 @@ urlpatterns = [
     path('get_node/',views.get_node),
     path('update_node/<int:nodeid>/',views.update_node),
     path('delete_node/<int:nodeid>/', views.delete_node),
-    path('nodedata_get/', views.node_data_get),
+    path('nodedata_get/', views.node_data_get_all),
     path('nodedata_last/', views.node_data_get),
     path('nodedata_post/',views.node_data_post),
     path('update_node_data/<int:node_id>/', views.update_node_data),

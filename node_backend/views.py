@@ -216,7 +216,7 @@ def delete_node(request, nodeid):
     return JsonResponse({"message": "Node deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
-def node_data_get(request):
+def node_data_get_all(request):
     if request.method == 'GET':
         NodeModel_objs = NodeModel.objects.all()
         serializer = NodeDataSerializer(NodeModel_objs, many=True)
