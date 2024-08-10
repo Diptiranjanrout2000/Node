@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 
 class Node(models.Model):
-    nodeid = models.CharField(max_length = 150,primary_key=True)
+    nodeid = models.CharField(max_length=150,unique=True)
     def __str__(self):
         node = f"{self.nodeid}"
         return node
