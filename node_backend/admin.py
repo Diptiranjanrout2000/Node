@@ -8,7 +8,7 @@ class Node(admin.ModelAdmin):
 
 @admin.register(NodeModel)
 class NodeModel(admin.ModelAdmin):
-    list_display =['node_id','gateway_id','data_field']
+    list_display =['node_id','gateway_id','data_field','created_at']
 
 
 
