@@ -15,7 +15,7 @@ class Node(models.Model):
 
 class NodeModel(models.Model):
     node_id = models.ForeignKey(Node, on_delete=models.CASCADE)
-    gateway_id = models.CharField(max_length=200, blank=True,primary_key=True)
+    gateway_id = models.CharField(max_length=200, blank=True)
     data_field = models.JSONField(null=True, blank=True)
 
     def __str__(self):
