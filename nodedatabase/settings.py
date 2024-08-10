@@ -98,13 +98,25 @@ WSGI_APPLICATION = 'nodedatabase.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'nodetest',
+#         'USER': 'bariflolabs',
+#         'PASSWORD': 'dipti@123',
+#         'HOST': '192.168.0.110',
+#         'PORT': '5432',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'nodetest',
-        'USER': 'bariflolabs',
+        'USER': 'postgres',
         'PASSWORD': 'dipti@123',
-        'HOST': '192.168.0.110',
+        'HOST': '192.168.1.28',
         'PORT': '5432',
     }
 }
