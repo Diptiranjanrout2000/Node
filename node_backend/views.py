@@ -251,9 +251,9 @@ def node_data_post(request):
             return JsonResponse({"error": "Invalid or missing data_field"}, status=400)
         
         try:
-            node = Node.objects.filter(nodeid=nodedata).first()
+            node = Node.objects.get(nodeid=nodedata)
             if node:
-                node_model = NodeModel(
+                node_model = NodeModel.objects.create(
                     node_id=node,
                     gateway_id=gateway_id,
                     data_field=data
