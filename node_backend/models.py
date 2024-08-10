@@ -5,7 +5,7 @@ from venv import create
 from django.db import models
 # from . models import *
 from django.contrib.auth.models import User
-from datetime import datetime
+from django.utils import timezone
 
 class Node(models.Model):
     nodeid = models.CharField(max_length=150,unique=True)
@@ -18,7 +18,7 @@ class NodeModel(models.Model):
     node_id = models.ForeignKey(Node, on_delete=models.CASCADE)
     gateway_id = models.CharField(max_length=200, blank=True)
     data_field = models.JSONField(null=True, blank=True)
-    created_at = models.DateTimeField(default=datetime.now)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
          gateway = f"{self.gateway_id}"
