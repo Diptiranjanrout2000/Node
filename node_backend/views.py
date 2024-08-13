@@ -9,6 +9,10 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from .models import *
 from .serializers import *
+import openpyxl
+from openpyxl import Workbook
+import os
+from datetime import datetime
 
 @api_view(['GET'])
 def get_node(request):
@@ -77,6 +81,19 @@ def node_data_get(request):
 
         serializer = NodeDataSerializer(NodeModel_obj)
         return JsonResponse({'status': 200, 'payload': serializer.data}, status=200)
+    
+
+
+@api_view(['GET'])
+def node_data_multiple(request):
+    if request.method == 'GET':
+        # Get the last 100 records
+        NodeModel_objs = NodeModel.objects.order_by('-id')[:100]
+        if not NodeModel_objs.exists():
+            return JsonResponse({'status': 404, 'message': 'No data found'}, status=404)
+
+        serializer = NodeDataSerializer(NodeModel_objs, many=True)
+        return JsonResponse({'status': 200, 'payload': serializer.data}, status=200)
 
 
 # from django.http import JsonResponse
@@ -112,15 +129,6 @@ def node_data_get(request):
 #         except Exception as e:
 #             return JsonResponse({"error": str(e)}, status=400)
 
-
-import openpyxl
-from openpyxl import Workbook
-from django.http import JsonResponse
-from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser
-from .models import Node, NodeModel 
-import os
-from datetime import datetime
 
 @api_view(['POST'])
 def node_data_post(request):
