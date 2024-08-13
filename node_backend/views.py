@@ -93,6 +93,7 @@ def node_data_multiple(request):
 
         serializer = NodeDataSerializer(NodeModel_objs, many=True)
         return JsonResponse({'status': 200, 'payload': serializer.data}, status=200)
+    
 
 
 # @api_view(['POST'])
