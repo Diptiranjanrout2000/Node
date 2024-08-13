@@ -84,22 +84,40 @@ def node_data_get(request):
     
 
 
+# @api_view(['GET'])
+# def node_data_multiple(request):
+#     if request.method == 'GET':
+#         NodeModel_objs = NodeModel.objects.order_by('-id')[:100]
+#         if not NodeModel_objs.exists():
+#             return JsonResponse({'status': 404, 'message': 'No data found'}, status=404)
+
+#         serializer = NodeDataSerializer(NodeModel_objs, many=True)
+#         return JsonResponse({'status': 200, 'payload': serializer.data}, status=200)
+
 @api_view(['GET'])
 def node_data_multiple(request):
     if request.method == 'GET':
-        # Get the last 100 records
-        NodeModel_objs = NodeModel.objects.order_by('-id')[:100]
+        # Check if 'count' parameter is provided
+        count = request.GET.get('count')
+        if not count:
+            return JsonResponse({'status': 400, 'message': 'Please specify how many records you want to retrieve using the "count" query parameter.'}, status=400)
+        
+        try:
+            count = int(count)
+        except ValueError:
+            return JsonResponse({'status': 400, 'message': '"count" must be an integer.'}, status=400)
+        
+        # Retrieve the last 'count' number of records from the NodeModel
+        NodeModel_objs = NodeModel.objects.order_by('-id')[:count]
+        
+        # If no records are found, return a 404 response
         if not NodeModel_objs.exists():
             return JsonResponse({'status': 404, 'message': 'No data found'}, status=404)
 
+        # Serialize the data and return it in the response
         serializer = NodeDataSerializer(NodeModel_objs, many=True)
         return JsonResponse({'status': 200, 'payload': serializer.data}, status=200)
 
-
-# from django.http import JsonResponse
-# from rest_framework.parsers import JSONParser
-# from rest_framework.decorators import api_view
-# from .models import Node, NodeModel
 
 # @api_view(['POST'])
 # def node_data_post(request):
