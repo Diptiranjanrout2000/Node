@@ -97,28 +97,19 @@ def node_data_get(request):
 @api_view(['GET'])
 def node_data_multiple(request):
     if request.method == 'GET':
-        # Check if 'count' parameter is provided
-        count = request.GET.get('count')
-        if not count:
+        count = request.GET.get('count')  # Get the 'count' parameter from the query string
+        if not count or not count.isdigit():
             return JsonResponse({'status': 400, 'message': 'Please specify how many records you want to retrieve using the "count" query parameter.'}, status=400)
-        
-        try:
-            count = int(count)
-        except ValueError:
-            return JsonResponse({'status': 400, 'message': '"count" must be an integer.'}, status=400)
-        
-        # Retrieve the last 'count' number of records from the NodeModel
+
+        count = int(count)
         NodeModel_objs = NodeModel.objects.order_by('-id')[:count]
-        
-        # If no records are found, return a 404 response
         if not NodeModel_objs.exists():
             return JsonResponse({'status': 404, 'message': 'No data found'}, status=404)
 
-        # Serialize the data and return it in the response
         serializer = NodeDataSerializer(NodeModel_objs, many=True)
         return JsonResponse({'status': 200, 'payload': serializer.data}, status=200)
-
-
+    
+    
 # @api_view(['POST'])
 # def node_data_post(request):
 #     if request.method == 'POST':
