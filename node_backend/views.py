@@ -96,35 +96,6 @@ def node_data_multiple(request):
     
 
 
-# @api_view(['POST'])
-# def node_data_post(request):
-#     if request.method == 'POST':
-#         data1 = JSONParser().parse(request)
-#         nodedata = data1.get('node_id')
-#         gateway_id = data1.get("gateway_id")
-#         data = data1.get("data_field")
-
-#         # Check if data is None or not a dict
-#         if data is None or not isinstance(data, dict):
-#             return JsonResponse({"error": "Invalid or missing data_field"}, status=400)
-        
-#         try:
-#             node = Node.objects.get(nodeid=nodedata)
-#             if node:
-#                 node_model = NodeModel.objects.create(
-#                     node_id=node,
-#                     gateway_id=gateway_id,
-#                     data_field=data
-#                 )
-#                 node_model.save()
-
-#                 return JsonResponse({"message": "Node post created"}, status=201)
-#             else:
-#                 return JsonResponse({"error": "Node not found"}, status=404)
-#         except Exception as e:
-#             return JsonResponse({"error": str(e)}, status=400)
-
-
 @api_view(['POST'])
 def node_data_post(request):
     if request.method == 'POST':
@@ -136,48 +107,18 @@ def node_data_post(request):
         # Check if data is None or not a dict
         if data is None or not isinstance(data, dict):
             return JsonResponse({"error": "Invalid or missing data_field"}, status=400)
-
+        
         try:
             node = Node.objects.get(nodeid=nodedata)
             if node:
-                try:
-                    # Create and save NodeModel instance
-                    node_model = NodeModel.objects.create(
-                        node_id=node,
-                        gateway_id=gateway_id,
-                        data_field=data
-                    )
-                    node_model.save()
-                    print(f"Data successfully saved to NodeModel: {node_model.id}")
+                node_model = NodeModel.objects.create(
+                    node_id=node,
+                    gateway_id=gateway_id,
+                    data_field=data
+                )
+                node_model.save()
 
-                except Exception as e:
-                    print(f"Error saving to NodeModel: {e}")
-                    return JsonResponse({"error": "Failed to save data to the database"}, status=500)
-
-                # File path to save the Excel file
-                file_path = 'nodedatabase/node_data.xlsx'
-
-                try:
-                    if os.path.exists(file_path):
-                        # Load existing workbook
-                        wb = openpyxl.load_workbook(file_path)
-                        ws = wb.active
-                    else:
-                        # Create a new workbook if file does not exist
-                        wb = Workbook()
-                        ws = wb.active
-                        ws.title = "Node Data"
-                        # Write the headers
-                        ws.append(["node_id", "gateway_id", "data_field", "timestamp"])
-
-                    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    ws.append([nodedata, gateway_id, str(data), timestamp])
-                    wb.save(file_path)
-
-                except Exception as e:
-                    print(f"Error appending data to Excel: {e}")
-                
-                return JsonResponse({"message": "Node post created and data saved to Excel and database"}, status=201)
+                return JsonResponse({"message": "Node post created"}, status=201)
             else:
                 return JsonResponse({"error": "Node not found"}, status=404)
         except Exception as e:

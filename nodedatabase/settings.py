@@ -80,28 +80,28 @@ WSGI_APPLICATION = 'nodedatabase.wsgi.application'
 
 #for host 192.168.0.110 in postgresql database
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'nodetest',
-#         'USER': 'bariflolabs',
-#         'PASSWORD': 'dipti@123',
-#         'HOST': '192.168.0.110',
-#         'PORT': '5432',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'nodetest',
         'USER': 'bariflolabs',
-        'PASSWORD': 'Bfl@123',
-        'HOST': '20.244.35.38',
-        'PORT': '8001',
+        'PASSWORD': 'dipti@123',
+        'HOST': '192.168.1.28',
+        'PORT': '5432',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'nodetest',
+#         'USER': 'bariflolabs',
+#         'PASSWORD': 'Bfl@123',
+#         'HOST': '20.244.35.38',
+#         'PORT': '8001',
+#     }
+# }
 
 #for localhost postgresql database
 # DATABASES = {
@@ -168,5 +168,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-DATABASE_ROUTERS = []
 
