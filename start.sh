@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 # Navigate to the Django project directory
 cd /home/pi/Node
