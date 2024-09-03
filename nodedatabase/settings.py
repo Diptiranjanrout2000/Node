@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'nodetest',
         'USER': 'bariflolabs',
         'PASSWORD': 'dipti@123',
-        'HOST': '192.168.1.28',
+        'HOST': '192.168.0.142',
         'PORT': '5432',
     }
 }
@@ -96,12 +96,23 @@ DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'nodetest',
+<<<<<<< HEAD
 #         'USER': 'bariflolabs',
 #         'PASSWORD': 'Bfl@123',
 #         'HOST': '20.244.35.38',
 #         'PORT': '8001',
 #     }
 # }
+=======
+#         'USER': 'postgres',
+#         'PASSWORD': 'dipti@123',
+#         'HOST': '192.168.1.28',
+#         'PORT': '5432',
+#     }
+# }
+
+
+>>>>>>> d75ec57 (setting)
 
 #for localhost postgresql database
 # DATABASES = {
