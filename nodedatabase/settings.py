@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'nodetest',
         'USER': 'bariflolabs',
         'PASSWORD': 'dipti@123',
-        'HOST': '192.168.0.142',
+        'HOST': '192.168.1.24',
         'PORT': '5432',
 
 
